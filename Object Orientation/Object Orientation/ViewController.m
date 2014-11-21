@@ -37,9 +37,6 @@
     
     self.engineTypeLabel.text = self.engineType;
     self.colorLabel.text = self.color;
-     
-    NSLog(@"Engine: %@",self.engineType);
-    NSLog(@"Color: %@", self.color);
 }
 
 #pragma mark - Debugging
