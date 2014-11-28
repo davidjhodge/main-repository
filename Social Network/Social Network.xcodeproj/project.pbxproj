@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		704D1ED11A0CA420004A0004 /* CreateNewPostVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 704D1ED01A0CA420004A0004 /* CreateNewPostVC.m */; };
-		704D1ED51A0EE8EA004A0004 /* MyPostsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 704D1ED41A0EE8EA004A0004 /* MyPostsTVC.m */; };
 		706565AD19F31866001633AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565AC19F31866001633AA /* main.m */; };
 		706565B019F31866001633AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565AF19F31866001633AA /* AppDelegate.m */; };
 		706565B619F31866001633AA /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565B519F31866001633AA /* SecondViewController.m */; };
@@ -44,8 +43,6 @@
 		704D1ECF1A0CA420004A0004 /* CreateNewPostVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewPostVC.h; sourceTree = "<group>"; };
 		704D1ED01A0CA420004A0004 /* CreateNewPostVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewPostVC.m; sourceTree = "<group>"; };
 		704D1ED21A0EB8F6004A0004 /* Data Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Data Model 2.xcdatamodel"; sourceTree = "<group>"; };
-		704D1ED31A0EE8EA004A0004 /* MyPostsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostsTVC.h; sourceTree = "<group>"; };
-		704D1ED41A0EE8EA004A0004 /* MyPostsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostsTVC.m; sourceTree = "<group>"; };
 		706565A719F31866001633AA /* Social Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		706565AB19F31866001633AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		706565AC19F31866001633AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,15 +106,6 @@
 				70753BC219F4A665007E3046 /* DemoPostTVC.m */,
 			);
 			name = PostTVC;
-			sourceTree = "<group>";
-		};
-		700F26981A180F05007E2338 /* My Posts */ = {
-			isa = PBXGroup;
-			children = (
-				704D1ED31A0EE8EA004A0004 /* MyPostsTVC.h */,
-				704D1ED41A0EE8EA004A0004 /* MyPostsTVC.m */,
-			);
-			name = "My Posts";
 			sourceTree = "<group>";
 		};
 		7065659E19F31866001633AA = {
@@ -214,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				700F26971A180EE3007E2338 /* PostTVC */,
-				700F26981A180F05007E2338 /* My Posts */,
 				70753BBA19F46435007E3046 /* PostCell.h */,
 				70753BBB19F46435007E3046 /* PostCell.m */,
 				70753BBD19F4772E007E3046 /* DetailTVC.h */,
@@ -347,7 +334,6 @@
 				70753BC319F4A665007E3046 /* DemoPostTVC.m in Sources */,
 				70753B7D19F42AAF007E3046 /* AmazonFetcher.m in Sources */,
 				70753BAD19F44F3A007E3046 /* CoreDataTVC.m in Sources */,
-				704D1ED51A0EE8EA004A0004 /* MyPostsTVC.m in Sources */,
 				70753BBC19F46435007E3046 /* PostCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

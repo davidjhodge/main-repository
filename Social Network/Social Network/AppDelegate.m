@@ -196,6 +196,21 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //Delete Document on Save
+    //[self deleteUIManagedDocument];
+}
+
+-(void)deleteUIManagedDocument
+{
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"SNDemoDoc"];
+    
+    UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
+    [document closeWithCompletionHandler:^(BOOL success){
+        if([[NSFileManager defaultManager] fileExistsAtPath:[document.fileURL path]]){
+            [[NSFileManager defaultManager] removeItemAtURL:document.fileURL error:nil];
+        }}];
 }
 
 @end

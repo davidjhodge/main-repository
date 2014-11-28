@@ -188,7 +188,7 @@
         <!--My Posts-->
         <scene sceneID="xtm-aF-7Ld">
             <objects>
-                <tableViewController id="pXe-8I-78m" customClass="MyPostsTVC" sceneMemberID="viewController">
+                <tableViewController id="pXe-8I-78m" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="217" sectionHeaderHeight="22" sectionFooterHeight="22" id="Tyc-4t-9JW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

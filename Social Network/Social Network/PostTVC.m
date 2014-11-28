@@ -67,8 +67,7 @@ static NSString * const PostCellIdentifer = @"PostCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //CHANGE THE HEIGHT HERE
-    //return 355;
+    //return 159;
     return [self heightForBasicCellAtIndexPath:indexPath];
 }
 

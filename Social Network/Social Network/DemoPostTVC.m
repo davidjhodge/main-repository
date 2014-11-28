@@ -43,7 +43,7 @@
 - (void)useContextDocument
 {
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"TestDoc"];
+    url = [url URLByAppendingPathComponent:@"SNDemoDoc"];
     //Remove All Posts
     //NSError *error = nil;
     //[[NSFileManager defaultManager] removeItemAtPath: [url absoluteString] error: &error];
@@ -67,8 +67,16 @@
         }];
     } else {
         self.managedObjectContext = document.managedObjectContext;
+        /*
+        [document saveToURL:url
+           forSaveOperation:UIDocumentSaveForCreating
+          completionHandler:^(BOOL success) {
+              if (success) {
+                  self.managedObjectContext = nil;
+                  [self refresh];
+              }
+          }];*/
     }
-    
 }
 
 #pragma mark - Refreshing
