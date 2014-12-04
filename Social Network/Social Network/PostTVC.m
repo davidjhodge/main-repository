@@ -67,8 +67,8 @@ static NSString * const PostCellIdentifer = @"PostCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //return 159;
-    return [self heightForBasicCellAtIndexPath:indexPath];
+    return 159;
+    //return [self heightForBasicCellAtIndexPath:indexPath];
 }
 
 -(CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath

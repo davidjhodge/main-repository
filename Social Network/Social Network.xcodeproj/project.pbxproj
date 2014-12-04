@@ -10,7 +10,6 @@
 		704D1ED11A0CA420004A0004 /* CreateNewPostVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 704D1ED01A0CA420004A0004 /* CreateNewPostVC.m */; };
 		706565AD19F31866001633AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565AC19F31866001633AA /* main.m */; };
 		706565B019F31866001633AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565AF19F31866001633AA /* AppDelegate.m */; };
-		706565B619F31866001633AA /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 706565B519F31866001633AA /* SecondViewController.m */; };
 		706565B919F31866001633AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 706565B719F31866001633AA /* Main.storyboard */; };
 		706565BB19F31866001633AA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 706565BA19F31866001633AA /* Images.xcassets */; };
 		706565BE19F31866001633AA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706565BC19F31866001633AA /* LaunchScreen.xib */; };
@@ -48,8 +47,6 @@
 		706565AC19F31866001633AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		706565AE19F31866001633AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		706565AF19F31866001633AA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		706565B419F31866001633AA /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		706565B519F31866001633AA /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		706565B819F31866001633AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		706565BA19F31866001633AA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		706565BD19F31866001633AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -132,8 +129,6 @@
 				706565AE19F31866001633AA /* AppDelegate.h */,
 				706565AF19F31866001633AA /* AppDelegate.m */,
 				70753BC019F4773E007E3046 /* Home */,
-				706565B419F31866001633AA /* SecondViewController.h */,
-				706565B519F31866001633AA /* SecondViewController.m */,
 				704D1ECF1A0CA420004A0004 /* CreateNewPostVC.h */,
 				704D1ED01A0CA420004A0004 /* CreateNewPostVC.m */,
 				706565B719F31866001633AA /* Main.storyboard */,
@@ -325,7 +320,6 @@
 				70753BBF19F4772E007E3046 /* DetailTVC.m in Sources */,
 				7065661119F32249001633AA /* Data Model.xcdatamodeld in Sources */,
 				704D1ED11A0CA420004A0004 /* CreateNewPostVC.m in Sources */,
-				706565B619F31866001633AA /* SecondViewController.m in Sources */,
 				70753BB919F463CF007E3046 /* PostTVC.m in Sources */,
 				706565B019F31866001633AA /* AppDelegate.m in Sources */,
 				70753BC719F4B862007E3046 /* GTScrollNavigationBar.m in Sources */,

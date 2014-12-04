@@ -33,7 +33,7 @@
 }
 
 #pragma mark - Core Data
-
+/*
 -(NSManagedObjectContext *)managedObjectContext {
     
     if (_managedObjectContext) {
@@ -69,21 +69,15 @@
         return _persistentStoreCoordinator;
     }
     
-    /*
-     NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-     NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Done.sqlite"];
-     */
-    
     NSURL *storeURL = [[self applicationStoresDirectory] URLByAppendingPathComponent:@"Test.sqlite"];
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
     
     //Create dictionary of options to tell Core Data how to migrate the persistent store to match the updated data model
-    /*
-     NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @(YES),
-     NSInferMappingModelAutomaticallyOption : @(YES)};
-     */
+ 
+     //NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @(YES),
+     //NSInferMappingModelAutomaticallyOption : @(YES)};
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         
@@ -175,7 +169,7 @@
     
     return [NSString stringWithFormat:@"%@.sqlite", [dateFormatter stringFromDate:[NSDate date]]];
 }
-
+*/
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

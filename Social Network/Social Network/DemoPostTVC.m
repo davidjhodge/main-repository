@@ -31,6 +31,12 @@
                   forControlEvents:UIControlEventValueChanged];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!self.managedObjectContext) [self useContextDocument];
+}
+
 // Whenever the table is about to appear, if we have not yet opened/created or demo document, do so.
 
 // Either creates, opens or just uses the demo document
@@ -43,7 +49,7 @@
 - (void)useContextDocument
 {
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"SNDemoDoc"];
+    url = [url URLByAppendingPathComponent:@"SNTest"];
     //Remove All Posts
     //NSError *error = nil;
     //[[NSFileManager defaultManager] removeItemAtPath: [url absoluteString] error: &error];
