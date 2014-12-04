@@ -12,10 +12,13 @@
 #import "Post+Database.h"
 #import "DetailTVC.h"
 #import "AmazonFetcher.h"
+#import "DemoPostTVC.h"
 
 static NSString * const PostCellIdentifer = @"PostCell";
 
 @interface PostTVC ()
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -142,6 +145,8 @@ static NSString * const PostCellIdentifer = @"PostCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self.selectedIndexPath = indexPath;
+    
     [self performSegueWithIdentifier:@"ShowDetail" sender:self];
     
 }
@@ -153,21 +158,19 @@ static NSString * const PostCellIdentifer = @"PostCell";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"ShowDetail"]) {
-        
-        NSIndexPath *indexPath = nil;
-        
-        if ([sender isKindOfClass:[PostCell class]]) {
-            indexPath = [self.tableView indexPathForCell:sender];
-        }
-        
+
+        NSIndexPath *indexPath = self.selectedIndexPath;
+                
         Post *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
         
         DetailTVC *vc = (DetailTVC *)[segue destinationViewController];
         vc.createdBy = post.createdBy;
         vc.content = post.content;
-        vc.createdAt = post.createdAt;
+        vc.createdAt = [self stringWithTimeSinceDate:post.createdAt];
         vc.likes = [post.likes stringValue];
         
+        NSLog(@"Prepare For Segue: %@,%@,%@,%@",vc.createdBy,vc.content,vc.createdAt,vc.likes);
+
     }
 }
 

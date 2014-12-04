@@ -10,7 +10,7 @@
 
 @interface PostTVC : CoreDataTVC
 
-//Specifies which database to look in to display all the recent posts in this table
+//Specifies which objects to pull from the database
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

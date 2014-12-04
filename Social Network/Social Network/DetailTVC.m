@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"DetailTVC ViewDidLoad: %@,%@,%@,%@",self.createdBy,self.content,self.createdAt,self.likes);
 }
 
 #pragma mark - UITableViewDataSource
@@ -28,7 +29,8 @@
     
     //Configure Cell in different method
     [self configureCell:cell atIndexPath:indexPath];
-    
+    NSLog(@"Cell Configured");
+
     return cell;
 }
 
@@ -42,6 +44,17 @@
     //Perhaps set what happens when you press the like button
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 1;
+}
 
 /*
 #pragma mark - Navigation

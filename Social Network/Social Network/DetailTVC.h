@@ -8,7 +8,7 @@
 
 #import "CoreDataTVC.h"
 
-@interface DetailTVC : CoreDataTVC
+@interface DetailTVC : UITableViewController
 
 @property (nonatomic, strong) NSString *createdBy;
 @property (nonatomic, strong) NSString *content;
