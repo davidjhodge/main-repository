@@ -42,6 +42,7 @@
         post.createdBy = [postDictionary[POST_CREATEDBY] description];
         post.likes = [NSNumber numberWithInt:[postDictionary[POST_LIKES] integerValue]];
         
+        NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, post.createdAt, [post.likes stringValue]);
         /*
          NSString *userName = [postDictionary[POST_OWNER] description];
          User *user = [User userWithName:userName inManagedObjectContext:managedObjectContext];

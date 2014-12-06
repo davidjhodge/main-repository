@@ -55,6 +55,7 @@
     NSString *requestLink = [NSString stringWithFormat:@"http://ec2-54-84-9-63.compute-1.amazonaws.com/php/TestService.php"];
     //NSString *sql = [NSString stringWithFormat:@"sql=SELECT * FROM Posts LIMIT 100"];
     //requestLink = [requestLink stringByAppendingString:sql];
+    NSLog(@"Latest Posts: %@",[self executeAmazonFetch:requestLink]);
     return [self executeAmazonFetch:requestLink];
 }
 
@@ -65,6 +66,20 @@
     NSString *uuid = [self getUUID];
     requestLink = [requestLink stringByAppendingString:uuid];
     return [self executeAmazonFetch:requestLink];
+}
+
+//like
++(void)like
+{
+    NSLog(@"Like Button Pressed");
+     NSString *requestLink = [NSString stringWithFormat:@"http://ec2-54-84-9-63.compute-1.amazonaws.com/php/TestService.php?"];
+    [self executeAmazonFetch:requestLink];
+}
+
+//unlike
++(void)unlike
+{
+    NSLog(@"Unlike Button Pressed");
 }
 
 @end

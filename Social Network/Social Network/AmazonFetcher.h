@@ -13,11 +13,13 @@
 #define POST_POSTID @"postID"
 #define POST_CONTENT @"content"
 #define POST_CREATEDAT @"createdAt"
-#define POST_CREATEDBY @"createdBy"
+#define POST_CREATEDBY @"whoPosted"
 #define POST_LIKES @"likes"
 
 + (NSString *)getUUID;
 + (NSArray *)latestPosts;
 + (NSArray *)myPosts;
++ (void)like;
++ (void)unlike;
 
 @end

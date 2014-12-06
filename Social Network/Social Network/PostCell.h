@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
+@property (nonatomic) BOOL likesAreEnabled;
 
 - (IBAction)like:(id)sender;
 

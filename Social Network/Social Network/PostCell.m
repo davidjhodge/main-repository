@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     // Initialization code
     //[self.createdAtLabel sizeToFit];
+    
+    self.likesAreEnabled = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
