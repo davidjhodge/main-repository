@@ -13,6 +13,7 @@
 #import "DetailTVC.h"
 #import "AmazonFetcher.h"
 #import "DemoPostTVC.h"
+#import "CreateNewPostVC.h"
 
 static NSString * const PostCellIdentifer = @"PostCell";
 
@@ -125,6 +126,8 @@ static NSString * const PostCellIdentifer = @"PostCell";
     [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
 }
 
+
+
 #pragma mark - UITableViewDataSource
 
 //Get the post for each row from the fetched results controller
@@ -189,10 +192,14 @@ static NSString * const PostCellIdentifer = @"PostCell";
 {
     NSDate *now = [NSDate date];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+#warning This pulls the timezone from settings, not from the user's actual location
+
+    //User TimeZone
+    NSDateFormatter *localFormatter = [[NSDateFormatter alloc] init];
+    [localFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSDate *postDate = [formatter dateFromString:date];
+    NSDate *postDate = [localFormatter dateFromString:date];
+    postDate = [self toLocalTime:postDate];
     
     NSTimeInterval distanceBetweenDates = [now timeIntervalSinceDate:postDate];
     
@@ -202,6 +209,7 @@ static NSString * const PostCellIdentifer = @"PostCell";
     NSInteger daysBetweenDates = distanceBetweenDates/SECONDS_IN_A_DAY;
     NSInteger weeksBetweenDates = distanceBetweenDates/SECONDS_IN_A_WEEK;
 
+    NSLog(@"%ld",(long)distanceBetweenDates);
     NSString *timeSince = nil;
     
     if (secondsBetweenDates <= 60)
@@ -225,6 +233,12 @@ static NSString * const PostCellIdentifer = @"PostCell";
     return timeSince;
 }
 
+-(NSDate *)toLocalTime:(NSDate *)aDate
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [tz secondsFromGMTForDate: aDate];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: aDate];
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -245,17 +259,25 @@ static NSString * const PostCellIdentifer = @"PostCell";
     if ([segue.identifier isEqualToString:@"ShowDetail"]) {
 
         NSIndexPath *indexPath = self.selectedIndexPath;
-        
+
         Post *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
+
         DetailTVC *vc = (DetailTVC *)[segue destinationViewController];
         vc.createdBy = post.createdBy;
         vc.content = post.content;
         vc.createdAt = [self stringWithTimeSinceDate:post.createdAt];
         vc.likes = [post.likes stringValue];
+        vc.selectedIndex = self.selectedIndexPath;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.fetchedResultsController = self.fetchedResultsController;
         
         NSLog(@"Prepare For Segue: %@,%@,%@,%@",vc.createdBy,vc.content,vc.createdAt,vc.likes);
 
+    } else if ([segue.identifier isEqualToString:@"CreatePostSegue"])
+    {
+        CreateNewPostVC *cnpvc = (CreateNewPostVC *)[segue destinationViewController];
+        cnpvc.managedObjectContext = self.managedObjectContext;
+        cnpvc.fetchedResultsController = self.fetchedResultsController;
     }
 }
 

@@ -42,7 +42,7 @@
         post.createdBy = [postDictionary[POST_CREATEDBY] description];
         post.likes = [NSNumber numberWithInt:[postDictionary[POST_LIKES] integerValue]];
         
-        NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, post.createdAt, [post.likes stringValue]);
+        //NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, post.createdAt, [post.likes stringValue]);
         /*
          NSString *userName = [postDictionary[POST_OWNER] description];
          User *user = [User userWithName:userName inManagedObjectContext:managedObjectContext];
@@ -58,6 +58,22 @@
     
     matches = nil;
        
+    return post;
+}
+
+- (Post *)newPostWithInfo:(NSDictionary *)postAttributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    Post *post = nil;
+    
+    post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:managedObjectContext];
+    //Set Attributes of Post
+    post.content = [postAttributes[POST_CONTENT] description];
+    post.createdAt = [postAttributes[POST_CREATEDAT] description];
+    post.createdBy = [postAttributes[POST_CREATEDBY] description];
+    post.likes = [NSNumber numberWithInt:[postAttributes[POST_LIKES] integerValue]];
+    
+    NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, post.createdAt, [post.likes stringValue]);
+
     return post;
 }
 

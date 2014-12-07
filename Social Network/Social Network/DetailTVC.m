@@ -8,8 +8,9 @@
 
 #import "DetailTVC.h"
 #import "PostCell.h"
+#import "Post.h"
 
-@interface DetailTVC ()
+@interface DetailTVC () <UIActionSheetDelegate, NSURLConnectionDelegate>
 
 @end
 
@@ -18,7 +19,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"DetailTVC ViewDidLoad: %@,%@,%@,%@",self.createdBy,self.content,self.createdAt,self.likes);
+    
+    //Delete Button
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteButtonPressed)];
+    self.navigationItem.rightBarButtonItem = deleteButton;
+}
+
+-(void)deleteButtonPressed
+{
+    UIActionSheet *deleteActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:@"Delete" otherButtonTitles:nil];
+    deleteActionSheet.tag = 1;
+    [deleteActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+-(void)deletePostFromServer
+{
+    Post *post = [self.fetchedResultsController objectAtIndexPath:self.selectedIndex];
+    NSLog(@"PostIndex: %ld. PostUserID: %@",(long)self.selectedIndex.row,post.createdBy);
+    
+    NSString *variablesForPHP = [NSString stringWithFormat:@"whoPosted=%@&createdAt=%@",post.createdBy,post.createdAt];
+    
+    NSString *linkText = @"http://ec2-54-84-9-63.compute-1.amazonaws.com/php/TestServiceDeletePost.php?";
+    linkText = [linkText stringByAppendingString:variablesForPHP];
+    linkText = [linkText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"Link Text: %@",linkText);
+    
+    NSURL *url = [NSURL URLWithString:linkText];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    NSLog(@"Post Deleted From Server");
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (actionSheet.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    [self deletePostFromServer];
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -29,7 +81,6 @@
     
     //Configure Cell in different method
     [self configureCell:cell atIndexPath:indexPath];
-    NSLog(@"Cell Configured");
 
     return cell;
 }
@@ -54,6 +105,13 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 1;
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
+    NSLog(@"%@,%@",error,error.localizedDescription);
 }
 
 /*

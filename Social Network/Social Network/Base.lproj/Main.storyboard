@@ -169,7 +169,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="cc4-qO-PaU">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="zKS-Kx-DUM" kind="presentation" id="uwx-XI-e8x"/>
+                                <segue destination="zKS-Kx-DUM" kind="presentation" identifier="CreatePostSegue" id="uwx-XI-e8x"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
