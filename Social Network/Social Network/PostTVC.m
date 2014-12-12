@@ -268,16 +268,16 @@ static NSString * const PostCellIdentifer = @"PostCell";
         vc.createdAt = [self stringWithTimeSinceDate:post.createdAt];
         vc.likes = [post.likes stringValue];
         vc.selectedIndex = self.selectedIndexPath;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.fetchedResultsController = self.fetchedResultsController;
+        //vc.managedObjectContext = self.managedObjectContext;
+        //vc.fetchedResultsController = self.fetchedResultsController;
         
         NSLog(@"Prepare For Segue: %@,%@,%@,%@",vc.createdBy,vc.content,vc.createdAt,vc.likes);
 
     } else if ([segue.identifier isEqualToString:@"CreatePostSegue"])
     {
         CreateNewPostVC *cnpvc = (CreateNewPostVC *)[segue destinationViewController];
-        cnpvc.managedObjectContext = self.managedObjectContext;
-        cnpvc.fetchedResultsController = self.fetchedResultsController;
+        //cnpvc.managedObjectContext = self.managedObjectContext;
+        //cnpvc.fetchedResultsController = self.fetchedResultsController;
     }
 }
 

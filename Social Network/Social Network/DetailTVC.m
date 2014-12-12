@@ -22,6 +22,7 @@
     
     //Delete Button
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteButtonPressed)];
+    deleteButton.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = deleteButton;
 }
 

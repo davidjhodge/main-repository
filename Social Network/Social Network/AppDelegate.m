@@ -16,10 +16,6 @@
 
 @interface AppDelegate ()
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
 @end
 
 @implementation AppDelegate
@@ -29,6 +25,11 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x00B8F5)];
+    
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:0];
+    PostTVC *controller = (PostTVC *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 

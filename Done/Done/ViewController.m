@@ -36,8 +36,6 @@
     self.checkAllButton = [[UIBarButtonItem alloc]initWithTitle:@"Check All" style:UIBarButtonItemStylePlain target:self action:@selector(checkAll:)];
     self.navigationItem.leftBarButtonItem = self.checkAllButton;
     
-    NSLog(@"%@",self.managedObjectContext);
-    
     //Initialize Fetch Request
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Item"];
     
@@ -219,7 +217,7 @@
             [self.fetchedResultsController.managedObjectContext deleteObject:record];
         }
     }
-    NSLog(@"%d",editingStyle);
+    NSLog(@"%ld",editingStyle);
 }
 
 #pragma mark - Prepare for Segue

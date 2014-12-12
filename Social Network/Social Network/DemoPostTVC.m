@@ -35,6 +35,7 @@
 {
     [super viewWillAppear:animated];
     if (!self.managedObjectContext) [self useContextDocument];
+    //[(AppDelegate *)[[UIApplication sharedApplication] delegate] useContextDocument];
 }
 
 // Whenever the table is about to appear, if we have not yet opened/created or demo document, do so.
