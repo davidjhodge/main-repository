@@ -13,6 +13,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic) double price;
+@property (nonatomic, strong) NSMutableArray *checkoutArray;
 
 @end
 

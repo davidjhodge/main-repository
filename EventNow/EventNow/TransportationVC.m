@@ -9,6 +9,8 @@
 #import "TransportationVC.h"
 #import "AppDelegate.h"
 #import "HomeVC.h"
+#import "Item+Create.h"
+#import "Overview.h"
 
 @interface TransportationVC ()
 
@@ -26,6 +28,18 @@
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.price += [self getUberPrice];
     
+    //Adds item to cart
+#warning Need to get this from online dictionary of services
+    //[Item addToCheckOutWithTitle:@"Uber" price:[self getUberPrice] iconImage:[UIImage imageNamed:@"27-planet.png"]];
+    Item *item = [Item itemWithTitle:@"Uber" price:[self getUberPrice] iconImage:[UIImage imageNamed:@"27-planet.png"]];
+    [Overview addObjectToArrayInstance:item];
+    
+    Overview *newInstance = [Overview getInstance];
+    NSLog(@"%lu",(unsigned long)newInstance.overviewArray.count);
+
+    Item *test = newInstance.overviewArray[0];
+    NSLog(@"%@",test.title);
+    
     sender.enabled = NO;
     
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -34,6 +48,12 @@
 -(double)getUberPrice
 {
     return 10.43;
+}
+
+#warning openUber
+-(void)openUber
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
 }
 
 

@@ -20,6 +20,8 @@ typedef enum PaymentStatuses
     PaymentStatus status;
 }
 
+@property (nonatomic, strong) NSMutableArray *items;
+
 -(void)payWithPayPal;
 
 @end

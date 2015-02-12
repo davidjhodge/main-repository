@@ -31,6 +31,14 @@
 		709B913E1A52531000101952 /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = 709B913D1A52531000101952 /* 53-house.png */; };
 		709B91421A52573700101952 /* OverviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B91411A52573700101952 /* OverviewVC.m */; };
 		709B91451A52607300101952 /* TransportationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B91441A52607300101952 /* TransportationVC.m */; };
+		709B91491A5307E800101952 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B91481A5307E800101952 /* Item.m */; };
+		709B914C1A533F9300101952 /* Item+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B914B1A533F9300101952 /* Item+Create.m */; };
+		709B914F1A53475A00101952 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B914E1A53475A00101952 /* ItemCell.m */; };
+		709B91511A534DD200101952 /* 27-planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 709B91501A534DD200101952 /* 27-planet.png */; };
+		709B91591A539B6C00101952 /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B91581A539B6C00101952 /* UIImageEffects.m */; };
+		709B915C1A53A94600101952 /* iPhone-Blue-Background-Blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 709B915B1A53A94600101952 /* iPhone-Blue-Background-Blur.png */; };
+		709B91621A53BAF200101952 /* Map-Pin_0000_Map-Pin-Blur@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 709B91611A53BAF200101952 /* Map-Pin_0000_Map-Pin-Blur@2x.png */; };
+		709B91651A54604200101952 /* Overview.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B91641A54604200101952 /* Overview.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +97,19 @@
 		709B91411A52573700101952 /* OverviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewVC.m; sourceTree = "<group>"; };
 		709B91431A52607300101952 /* TransportationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationVC.h; sourceTree = "<group>"; };
 		709B91441A52607300101952 /* TransportationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationVC.m; sourceTree = "<group>"; };
+		709B91471A5307E800101952 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		709B91481A5307E800101952 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		709B914A1A533F9300101952 /* Item+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Item+Create.h"; sourceTree = "<group>"; };
+		709B914B1A533F9300101952 /* Item+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Item+Create.m"; sourceTree = "<group>"; };
+		709B914D1A53475A00101952 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		709B914E1A53475A00101952 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		709B91501A534DD200101952 /* 27-planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "27-planet.png"; sourceTree = "<group>"; };
+		709B91571A539B6C00101952 /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageEffects.h; sourceTree = "<group>"; };
+		709B91581A539B6C00101952 /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageEffects.m; sourceTree = "<group>"; };
+		709B915B1A53A94600101952 /* iPhone-Blue-Background-Blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone-Blue-Background-Blur.png"; sourceTree = "<group>"; };
+		709B91611A53BAF200101952 /* Map-Pin_0000_Map-Pin-Blur@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Map-Pin_0000_Map-Pin-Blur@2x.png"; sourceTree = "<group>"; };
+		709B91631A54604200101952 /* Overview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Overview.h; sourceTree = "<group>"; };
+		709B91641A54604200101952 /* Overview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Overview.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,13 +161,16 @@
 				709B90EC1A51B02000101952 /* AppDelegate.h */,
 				709B90ED1A51B02000101952 /* AppDelegate.m */,
 				709B913F1A5255B400101952 /* Home */,
-				709B91401A52573700101952 /* OverviewVC.h */,
-				709B91411A52573700101952 /* OverviewVC.m */,
+				709B91461A5307A200101952 /* Overview */,
 				709B91431A52607300101952 /* TransportationVC.h */,
 				709B91441A52607300101952 /* TransportationVC.m */,
 				709B90F21A51B02000101952 /* Main.storyboard */,
 				709B90F51A51B02000101952 /* Images.xcassets */,
 				709B90F71A51B02000101952 /* LaunchScreen.xib */,
+				709B91501A534DD200101952 /* 27-planet.png */,
+				709B915B1A53A94600101952 /* iPhone-Blue-Background-Blur.png */,
+				709B91611A53BAF200101952 /* Map-Pin_0000_Map-Pin-Blur@2x.png */,
+				709B915A1A539B7300101952 /* UIImageEffects */,
 				709B91361A523E4000101952 /* Icons */,
 				709B911A1A51B76000101952 /* Library */,
 				709B90E81A51B02000101952 /* Supporting Files */,
@@ -240,6 +264,32 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
+		709B91461A5307A200101952 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				709B91401A52573700101952 /* OverviewVC.h */,
+				709B91411A52573700101952 /* OverviewVC.m */,
+				709B91631A54604200101952 /* Overview.h */,
+				709B91641A54604200101952 /* Overview.m */,
+				709B91471A5307E800101952 /* Item.h */,
+				709B91481A5307E800101952 /* Item.m */,
+				709B914A1A533F9300101952 /* Item+Create.h */,
+				709B914B1A533F9300101952 /* Item+Create.m */,
+				709B914D1A53475A00101952 /* ItemCell.h */,
+				709B914E1A53475A00101952 /* ItemCell.m */,
+			);
+			name = Overview;
+			sourceTree = "<group>";
+		};
+		709B915A1A539B7300101952 /* UIImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				709B91571A539B6C00101952 /* UIImageEffects.h */,
+				709B91581A539B6C00101952 /* UIImageEffects.m */,
+			);
+			name = UIImageEffects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -321,12 +371,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				709B913E1A52531000101952 /* 53-house.png in Resources */,
+				709B91621A53BAF200101952 /* Map-Pin_0000_Map-Pin-Blur@2x.png in Resources */,
 				709B91341A523E3800101952 /* 136-tractor.png in Resources */,
 				709B90F41A51B02000101952 /* Main.storyboard in Resources */,
 				709B91321A523E3800101952 /* 48-fork-and-knife.png in Resources */,
 				709B90F91A51B02000101952 /* LaunchScreen.xib in Resources */,
 				709B90F61A51B02000101952 /* Images.xcassets in Resources */,
 				709B91351A523E3800101952 /* 144-martini.png in Resources */,
+				709B915C1A53A94600101952 /* iPhone-Blue-Background-Blur.png in Resources */,
+				709B91511A534DD200101952 /* 27-planet.png in Resources */,
 				709B91331A523E3800101952 /* 112-group.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,9 +398,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				709B91651A54604200101952 /* Overview.m in Sources */,
+				709B91491A5307E800101952 /* Item.m in Sources */,
 				709B91391A524C9B00101952 /* Industry.m in Sources */,
 				709B912A1A521FF300101952 /* HomeVC.m in Sources */,
 				709B90EE1A51B02000101952 /* AppDelegate.m in Sources */,
+				709B914C1A533F9300101952 /* Item+Create.m in Sources */,
+				709B91591A539B6C00101952 /* UIImageEffects.m in Sources */,
+				709B914F1A53475A00101952 /* ItemCell.m in Sources */,
 				709B913C1A524E3500101952 /* Industry+Create.m in Sources */,
 				709B912D1A52382000101952 /* IndustryCell.m in Sources */,
 				709B90EB1A51B02000101952 /* main.m in Sources */,

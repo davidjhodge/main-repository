@@ -26,9 +26,12 @@ NSString *testAppID = @"APP-80W284485P519543T";
     //Navigation Bar Color
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x00B8F5)];
     
+    //Status Bar Color
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [PayPal initializeWithAppID:testAppID
                  forEnvironment:ENV_SANDBOX];
-    
+        
     return YES;
 }
 

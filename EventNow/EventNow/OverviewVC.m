@@ -7,8 +7,15 @@
 //
 
 #import "OverviewVC.h"
+#import "Item+Create.h"
+#import "ItemCell.h"
+#import "AppDelegate.h"
+#import "Overview.h"
 
 @interface OverviewVC ()
+
+//Array Of Items is a publically accessible in .h
+@property (nonatomic) double totalPrice;
 
 @end
 
@@ -20,9 +27,35 @@
     //PayPalPayment *currentPayment =
     
     self.navigationItem.title = @"Overview";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                   [UIColor whiteColor], NSForegroundColorAttributeName,
+                                                                   [UIFont fontWithName:@"HelveticaNeue-Medium" size:17], NSFontAttributeName, nil];
+    Overview *overview = [Overview getInstance];
+    self.items = overview.overviewArray;
     
+    [self setTotalPrice:self.totalPrice];
 }
 
+-(void)setTotalPrice:(double)aPrice
+{
+    if (self.items.count > 0)
+        
+    for (Item *item in self.items)
+    {
+        aPrice += item.price;
+    }
+}
+
+
+/*
+-(void)addToCart
+{
+    Item *item = [Item itemWithTitle:@"Uber" price:10.43 iconImage:[UIImage imageNamed:@"27-planet.png"]];
+
+    [self.items addObject:item];
+}
+*/
 #pragma mark - PayPal
 
 -(void)payWithPayPal
@@ -59,10 +92,16 @@
 //correlationID is a string that uniquely identifies to PayPal the failed transaction.
 //errorCode is generally (but not always) a numerical code associated with the error.
 //errorMessage is a human-readable string describing the error that occurred.
+/*
 - (void)paymentFailedWithCorrelationID:
 (NSString *)correlationID andErrorCode:
 (NSString *)errorCode andErrorMessage:
 (NSString *)errorMessage {
+    status = PAYMENTSTATUS_FAILED;
+}*/
+
+- (void)paymentFailedWithCorrelationID:
+(NSString *)correlationID {
     status = PAYMENTSTATUS_FAILED;
 }
 
@@ -72,9 +111,37 @@
     status = PAYMENTSTATUS_CANCELED;
 }
 
--(void)openUber
+#warning This needs implementation
+//PaymentLibraryExit
+-(void)paymentLibraryExit
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
+    
+}
+
+#pragma mark - UITableViewDataSource
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *identifier = @"ItemCell";
+    ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    
+    Item *item = [self.items objectAtIndex:indexPath.row];
+    
+    cell.imageView.image = item.image;
+    cell.titleLabel.text = item.title;
+    cell.priceLabel.text = [Item getPriceStringFromDouble:item.price];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.items.count;
 }
 
 @end

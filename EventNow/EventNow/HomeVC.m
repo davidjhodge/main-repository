@@ -8,12 +8,15 @@
 
 #import "HomeVC.h"
 #import "AppDelegate.h"
+#import "Item+Create.h"
+#import "UIImageEffects.h"
 
 @interface HomeVC ()
 
 @property (nonatomic) double total;
 @property (nonatomic, strong) NSArray *industryArray;
 @property (nonatomic, strong) UIBarButtonItem *totalButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation HomeVC
@@ -21,20 +24,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"EventNow";
+    //self.navigationItem.title = @"EventNow";
+    UIImage *titleImage = [UIImage imageNamed:@"Map-Pin_0000_Map-Pin-Blur.png"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:titleImage];
     
     //Total Button. Checkout Button is built in storyboard
     self.totalButton = [[UIBarButtonItem alloc] initWithTitle:@" $0.00" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.totalButton.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = self.totalButton;
     
-    self.industryArray = [self createArrayOfInustries];
+    //Change seperator color and delete seperators below end of table
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    if ([self.tableView respondsToSelector:@selector(layoutMargins)]) {
+        self.tableView.layoutMargins = UIEdgeInsetsZero;
+    }
+
+    self.industryArray = [self createArrayOfInustries];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    
+    //UIImage *image = [self takeSnapshotOfView:self.blurImageView];
+    //[self blurWithImageEffects:image];
     
     [self setTotal];
 }
@@ -42,11 +57,21 @@
 -(void)setTotal
 {
     AppDelegate *aD = [UIApplication sharedApplication].delegate;
-    self.totalButton.title = [self getPriceStringFromDouble:aD.price];
+    self.totalButton.title = [Item getPriceStringFromDouble:aD.price];
     self.navigationItem.leftBarButtonItem = self.totalButton;
 }
+/*
+#pragma mark - Background Blur
 
+- (UIImage *)blurWithImageEffects:(UIImage *)image
+{
+    return [UIImageEffects imageByApplyingBlurToImage:image withRadius:30 tintColor:[UIColor colorWithWhite:1 alpha:0.2] saturationDeltaFactor:1.5 maskImage:nil];
 
+}
+*/
+
+#warning This is not used anymore. Item+Create implements this as a class method
+/*
 //Formats a double in price format.
 -(NSString *)getPriceStringFromDouble:(double)aDouble
 {
@@ -62,7 +87,7 @@
     
     return [NSString stringWithFormat:@" %@",[formatter stringFromNumber:number]];
 }
-
+*/
 -(NSArray *)createArrayOfInustries
 {
     Industry *transportation = [Industry industryWithTitle:@"Transportation"
@@ -99,8 +124,8 @@
     IndustryCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
     Industry *industry = [self.industryArray objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:industry.icon];
-    cell.imageView.contentMode = UIViewContentModeCenter;
+    cell.iconImageView.image = [UIImage imageNamed:industry.icon];
+    //cell.imageView.contentMode = UIViewContentModeCenter;
     cell.titleLabel.text = industry.title;
     
     return cell;

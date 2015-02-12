@@ -11,7 +11,7 @@
 @interface IndustryCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (nonatomic, strong) NSString *segueIdentifier;
 
 @end
