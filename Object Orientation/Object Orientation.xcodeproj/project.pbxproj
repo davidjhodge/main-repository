@@ -15,6 +15,7 @@
 		70D7F25719ECB8E900F48124 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70D7F25519ECB8E900F48124 /* LaunchScreen.xib */; };
 		70D7F26319ECB8E900F48124 /* Object_OrientationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D7F26219ECB8E900F48124 /* Object_OrientationTests.m */; };
 		70E75BF119ECC58C006F88C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E75BF019ECC58C006F88C0 /* DetailViewController.m */; };
+		70E75BF419ECE8C3006F88C0 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E75BF319ECE8C3006F88C0 /* Car.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		70D7F26219ECB8E900F48124 /* Object_OrientationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Object_OrientationTests.m; sourceTree = "<group>"; };
 		70E75BEF19ECC58C006F88C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		70E75BF019ECC58C006F88C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		70E75BF219ECE8C3006F88C0 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
+		70E75BF319ECE8C3006F88C0 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 				70D7F24E19ECB8E900F48124 /* ViewController.m */,
 				70E75BEF19ECC58C006F88C0 /* DetailViewController.h */,
 				70E75BF019ECC58C006F88C0 /* DetailViewController.m */,
+				70E75BF219ECE8C3006F88C0 /* Car.h */,
+				70E75BF319ECE8C3006F88C0 /* Car.m */,
 				70D7F25019ECB8E900F48124 /* Main.storyboard */,
 				70D7F25319ECB8E900F48124 /* Images.xcassets */,
 				70D7F25519ECB8E900F48124 /* LaunchScreen.xib */,
@@ -224,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70E75BF419ECE8C3006F88C0 /* Car.m in Sources */,
 				70D7F24F19ECB8E900F48124 /* ViewController.m in Sources */,
 				70D7F24C19ECB8E900F48124 /* AppDelegate.m in Sources */,
 				70D7F24919ECB8E900F48124 /* main.m in Sources */,
