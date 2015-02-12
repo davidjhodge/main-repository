@@ -16,10 +16,6 @@
 
 @interface AppDelegate ()
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
 @end
 
 @implementation AppDelegate
@@ -29,11 +25,16 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x00B8F5)];
+    
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:0];
+    PostTVC *controller = (PostTVC *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 
 #pragma mark - Core Data
-
+/*
 -(NSManagedObjectContext *)managedObjectContext {
     
     if (_managedObjectContext) {
@@ -69,21 +70,15 @@
         return _persistentStoreCoordinator;
     }
     
-    /*
-     NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-     NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Done.sqlite"];
-     */
-    
     NSURL *storeURL = [[self applicationStoresDirectory] URLByAppendingPathComponent:@"Test.sqlite"];
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
     
     //Create dictionary of options to tell Core Data how to migrate the persistent store to match the updated data model
-    /*
-     NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @(YES),
-     NSInferMappingModelAutomaticallyOption : @(YES)};
-     */
+ 
+     //NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @(YES),
+     //NSInferMappingModelAutomaticallyOption : @(YES)};
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         
@@ -175,7 +170,7 @@
     
     return [NSString stringWithFormat:@"%@.sqlite", [dateFormatter stringFromDate:[NSDate date]]];
 }
-
+*/
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

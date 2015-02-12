@@ -12,10 +12,16 @@
 #import "Post+Database.h"
 #import "DetailTVC.h"
 #import "AmazonFetcher.h"
+#import "DemoPostTVC.h"
+#import "CreateNewPostVC.h"
 
 static NSString * const PostCellIdentifer = @"PostCell";
 
-@interface PostTVC ()
+@interface PostTVC () <NSURLConnectionDelegate>
+
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, strong) PostCell *cellToUpdateLikes;
+@property (nonatomic, strong) NSMutableData *responseData;
 
 @end
 
@@ -36,6 +42,91 @@ static NSString * const PostCellIdentifer = @"PostCell";
         self.fetchedResultsController = nil;
     }
 }
+
+#pragma mark - Like Functionality
+
+- (IBAction)LikeButton:(UIButton*)sender {
+    
+    //Gets the cell that the button was in
+    PostCell *cell = (PostCell *)sender.superview.superview;
+    self.selectedIndexPath = [self.tableView indexPathForCell:cell];
+
+    if (cell.likesAreEnabled == YES) //LIKE
+    {
+        //Updates the UI to show the likes have been incremented
+        NSInteger newLikes = [cell.likesLabel.text integerValue] + 1;
+        cell.likesLabel.text = [NSString stringWithFormat:@"%ld", (long) newLikes];
+        
+        //Disables the button so the user can only like 1 time
+        //sender.titleLabel.textColor = [UIColor lightTextColor];
+        //sender.titleLabel.text = @"Unlike";
+
+        [self like];
+        NSLog(@"Liked");
+        
+        cell.likesAreEnabled = NO;
+        
+    } else if (cell.likesAreEnabled == NO) //UNLIKE
+    {
+        //Updates the UI to show the likes have decremented
+        NSInteger newLikes = [cell.likesLabel.text integerValue] - 1;
+        cell.likesLabel.text = [NSString stringWithFormat:@"%ld", (long) newLikes];
+        
+        //Re-enables the button so the user can like again if they choose
+        //sender.titleLabel.textColor = [UIColor blueColor];
+        //sender.titleLabel.text = @"Like";
+        
+        [self unlike];
+        NSLog(@"Unliked");
+
+        cell.likesAreEnabled = YES;
+        
+    } else
+    {
+        NSLog(@"Error");
+    }
+
+}
+
+-(void)like
+{
+    Post *post = [self.fetchedResultsController objectAtIndexPath:self.selectedIndexPath];
+    
+    NSString *variablesForPHP = [NSString stringWithFormat:@"whoPosted=%@&createdAt=%@&likesOperator=",post.createdBy,post.createdAt];
+    
+    NSString *linkText = @"http://ec2-54-84-9-63.compute-1.amazonaws.com/php/TestServiceUpdateLikes.php?";
+    linkText = [linkText stringByAppendingString:variablesForPHP];
+    linkText = [linkText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    linkText = [linkText stringByAppendingString:@"%2B"];
+    NSLog(@"Link Text: %@",linkText);
+
+    NSURL *url = [NSURL URLWithString:linkText];
+    NSLog(@"URL: %@",url);
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+}
+
+-(void)unlike
+{
+    Post *post = [self.fetchedResultsController objectAtIndexPath:self.selectedIndexPath];
+    
+    NSString *variablesForPHP = [NSString stringWithFormat:@"whoPosted=%@&createdAt=%@&likesOperator=",post.createdBy,post.createdAt];
+    
+    NSString *linkText = @"http://ec2-54-84-9-63.compute-1.amazonaws.com/php/TestServiceUpdateLikes.php?";
+    linkText = [linkText stringByAppendingString:variablesForPHP];
+    linkText = [linkText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    linkText = [linkText stringByAppendingString:@"%2D"];
+    NSLog(@"Link Text: %@",linkText);
+    
+    NSURL *url = [NSURL URLWithString:linkText];
+    NSLog(@"URL: %@",url);
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+}
+
+
 
 #pragma mark - UITableViewDataSource
 
@@ -60,15 +151,15 @@ static NSString * const PostCellIdentifer = @"PostCell";
     cell.createdAtLabel.text = [self stringWithTimeSinceDate:post.createdAt];
     cell.likesLabel.text = [post.likes stringValue];
     
-     //NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, [self stringFromDate:[post createdAt]], [post.likes stringValue]);
+     //NSLog(@"CreatedBy: %@, Content: %@, CreatedAt: %@, Likes: %@", post.createdBy, post.content, [self stringWithTimeSinceDate:post.createdAt], [post.likes stringValue]);
     
     //Perhaps set what happens when you press the like button
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //return 159;
-    return [self heightForBasicCellAtIndexPath:indexPath];
+    return 159;
+    //return [self heightForBasicCellAtIndexPath:indexPath];
 }
 
 -(CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath
@@ -101,10 +192,14 @@ static NSString * const PostCellIdentifer = @"PostCell";
 {
     NSDate *now = [NSDate date];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+#warning This pulls the timezone from settings, not from the user's actual location
+
+    //User TimeZone
+    NSDateFormatter *localFormatter = [[NSDateFormatter alloc] init];
+    [localFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSDate *postDate = [formatter dateFromString:date];
+    NSDate *postDate = [localFormatter dateFromString:date];
+    postDate = [self toLocalTime:postDate];
     
     NSTimeInterval distanceBetweenDates = [now timeIntervalSinceDate:postDate];
     
@@ -114,6 +209,7 @@ static NSString * const PostCellIdentifer = @"PostCell";
     NSInteger daysBetweenDates = distanceBetweenDates/SECONDS_IN_A_DAY;
     NSInteger weeksBetweenDates = distanceBetweenDates/SECONDS_IN_A_WEEK;
 
+    NSLog(@"%ld",(long)distanceBetweenDates);
     NSString *timeSince = nil;
     
     if (secondsBetweenDates <= 60)
@@ -137,10 +233,18 @@ static NSString * const PostCellIdentifer = @"PostCell";
     return timeSince;
 }
 
+-(NSDate *)toLocalTime:(NSDate *)aDate
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [tz secondsFromGMTForDate: aDate];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: aDate];
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    self.selectedIndexPath = indexPath;
     
     [self performSegueWithIdentifier:@"ShowDetail" sender:self];
     
@@ -153,22 +257,49 @@ static NSString * const PostCellIdentifer = @"PostCell";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"ShowDetail"]) {
-        
-        NSIndexPath *indexPath = nil;
-        
-        if ([sender isKindOfClass:[PostCell class]]) {
-            indexPath = [self.tableView indexPathForCell:sender];
-        }
-        
+
+        NSIndexPath *indexPath = self.selectedIndexPath;
+
         Post *post = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
+
         DetailTVC *vc = (DetailTVC *)[segue destinationViewController];
         vc.createdBy = post.createdBy;
         vc.content = post.content;
-        vc.createdAt = post.createdAt;
+        vc.createdAt = [self stringWithTimeSinceDate:post.createdAt];
         vc.likes = [post.likes stringValue];
+        vc.selectedIndex = self.selectedIndexPath;
+        //vc.managedObjectContext = self.managedObjectContext;
+        //vc.fetchedResultsController = self.fetchedResultsController;
         
+        NSLog(@"Prepare For Segue: %@,%@,%@,%@",vc.createdBy,vc.content,vc.createdAt,vc.likes);
+
+    } else if ([segue.identifier isEqualToString:@"CreatePostSegue"])
+    {
+        CreateNewPostVC *cnpvc = (CreateNewPostVC *)[segue destinationViewController];
+        //cnpvc.managedObjectContext = self.managedObjectContext;
+        //cnpvc.fetchedResultsController = self.fetchedResultsController;
     }
+}
+
+#pragma mark - NSURLConnection Delegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    _responseData = [[NSMutableData alloc] init];
+}
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [_responseData appendData:data];
+    NSString *string = [NSString stringWithUTF8String:[_responseData bytes]];
+    NSLog(@"%@",string);
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
+    NSLog(@"%@,%@",error,error.localizedDescription);
 }
 
 @end

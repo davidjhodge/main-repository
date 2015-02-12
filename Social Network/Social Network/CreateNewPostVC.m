@@ -8,6 +8,8 @@
 
 #import "CreateNewPostVC.h"
 #import "AmazonFetcher.h"
+#import "Post+Database.h"
+#import "AppDelegate.h"
 
 @interface CreateNewPostVC () <UITextViewDelegate, NSURLConnectionDelegate>
 
@@ -31,6 +33,9 @@
     
     self.textView.text = nil;
     [self.textView becomeFirstResponder];
+    
+    self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+
 }
 
 -(void)initializeTextView
@@ -56,10 +61,10 @@
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     
+    [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+
     [self.textView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
 }
 
 #pragma mark - NSURLConnection Delegate
@@ -72,11 +77,25 @@
     // also serves to clear it
     _responseData = [[NSMutableData alloc] init];
 }
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [_responseData appendData:data];
     NSString *string = [NSString stringWithUTF8String:[_responseData bytes]];
-    NSLog(@"%@",string);
+    NSLog(@"Received Data: %@",string);
+    /*
+    //Post uploaded
+    NSDictionary *postDictionary = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                    POST_CONTENT, self.textView.text,
+                                    POST_CREATEDAT,[NSDate date],
+                                    POST_CREATEDBY,[AmazonFetcher getUUID],
+                                    POST_LIKES,0,
+                                    nil];
+    [self.managedObjectContext performBlock:^{
+        [Post postWithInfoFromDatabase:postDictionary inManagedObjectContext:self.managedObjectContext];
+        NSLog(@"MOC Updated");
+    }];
+     */
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DemoPostTVC.h"
 
 @interface CreateNewPostVC : UIViewController
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
