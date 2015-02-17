@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSURLSessionDelegate {
     var dictionary: NSDictionary = NSDictionary()
-    @IBOutlet weak var resultLabel: UILabel!
+    var loanArray: Array<Loan> = []
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,28 +23,35 @@ class ViewController: UIViewController {
     func printResults()
     {
         println(self.dictionary)
-        
+    }
+    
+    func loadJSONData()
+    {
         if let loans: Array<Dictionary<String,AnyObject>> = self.dictionary["loans"] as? Array<Dictionary<String,AnyObject>>
         {
-            if let location: Dictionary<String,AnyObject> = loans[0]["location"] as? Dictionary<String,AnyObject>
+            for loan in loans
             {
-                if let country: String = location["country"] as? String
+                var currentLoan: Loan = Loan()
+                
+                if let activity: String = loan["activity"] as? String
                 {
-                    self.resultLabel.text = country
-                    println(country)
+                    currentLoan.name = activity
                 }
+                
+                if let location: Dictionary<String,AnyObject> = loan["location"] as? Dictionary<String,AnyObject>
+                {
+                    if let country: String = location["country"] as? String
+                    {
+                        currentLoan.location = country
+                    }
+                }
+                loanArray.append(currentLoan)
             }
         }
+        self.tableView.reloadData()
     }
     
-    /*
-    for (Dictionary currentLoan in loans)
-    {
-    currentLoad["key"];
-    
-    }
-    */
-    
+    //MARK : GET/POST Requests
     func fetchResultsWithQuery() -> Void
     {
         //URL to access
@@ -76,6 +85,7 @@ class ViewController: UIViewController {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.dictionary = json
                         self.printResults()
+                        self.loadJSONData()
                     })
                     
                 }
@@ -85,51 +95,36 @@ class ViewController: UIViewController {
         dataTask.resume()
     }
     
-    func postInfoToDatabase(info: Dictionary<String,String>)
-    {
-        //Create URL
-        let urlString = "https://testsite.com/var/www/html/PHPFileGetPosts.php?"
-        let url: NSURL = NSURL(string: urlString)!
+    @IBAction func uploadPost(sender: AnyObject) {
         
-        let request: NSMutableURLRequest = NSMutableURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 15.0)
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        //For POST Request
-        request.HTTPMethod = "POST"
-        
-        let mapData: Dictionary = [
+        let mapData: Dictionary<String,String> = [
             "name" : "David",
             "address" : "216 Sweet Gum Rd"
         ]
-        
-        var error: NSError?
-        let postData: NSData = NSJSONSerialization.dataWithJSONObject(mapData, options: nil, error: &error)!
-        request.HTTPBody = postData
-        
-        
-        //Create NSURL Session with default configuration
-        let sessionConfiguration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session: NSURLSession = NSURLSession(configuration: sessionConfiguration)
-        
-        //Define data task what to do with response
-        let dataTask: NSURLSessionDataTask = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
-            //Completion Handler runs in background thread
-            //Must use wrapper to call an nsnotification to update teh UI
-            let httpResponse: NSHTTPURLResponse = response as! NSHTTPURLResponse
-            
-            if httpResponse.statusCode == 200
-            {
-                if let err = error {
-                    println(error?.localizedDescription)
-                    
-                } else {
-                    println("Success")
-                }
-            }
-        })
-        //Start the Data Task
-        dataTask.resume()
+        postInfoToDatabase(mapData)
     }
+    
+    //MARK : TableViewDelegate/DataSource
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: LoanTableCell = tableView.dequeueReusableCellWithIdentifier("LoanTableCell") as! LoanTableCell
+        
+        let loan: Loan = self.loanArray[indexPath.row]
+        cell.nameLabel.text = loan.name
+        cell.locationLabel.text = loan.location
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.loanArray.count
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    //MARK: NSURLSessionDelegate
+    
+    
 }
 
